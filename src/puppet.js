@@ -32,9 +32,8 @@ const start=async () => {
       || response.request().method() === 'POST'), 11);
      responseJson = await finalResponse.json();
      data.push(...responseJson.searchResult.searchMerchants)
-    console.log(responseJson.searchResult.searchMerchants)
-    counter--
-    await page.waitForTimeout(10000)
+     counter--
+     await page.waitForTimeout(10000)
   }  
  
  
