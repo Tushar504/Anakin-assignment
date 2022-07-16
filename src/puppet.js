@@ -8,7 +8,7 @@ const start=async () => {
   const page = await browser.newPage();
   
    
-  const navigationPromise = page.waitForNavigation()
+  const navigationPromise = page.waitForNavigation({waitUntil: 'networkidle2'})
 
 
   await page.goto('https://food.grab.com/sg/en/')
@@ -33,7 +33,7 @@ const start=async () => {
      let responseJson = await finalResponse.json();
      data.push(...responseJson.searchResult.searchMerchants)
      counter--
-     await page.waitForTimeout(5000)
+     await page.waitForTimeout(3000)
   }  
  
  
