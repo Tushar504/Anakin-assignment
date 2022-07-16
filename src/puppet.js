@@ -22,7 +22,7 @@ const start=async () => {
  
   let counter = 10;
   let data=[]
- let responseJson
+ 
   while (counter!=0) {
     await page.waitForSelector('.ant-btn')
     await page.click('.ant-btn')
@@ -30,7 +30,7 @@ const start=async () => {
       response.url()==='https://portal.grab.com/foodweb/v2/search'
       && (response.request().method() === 'PATCH' 
       || response.request().method() === 'POST'), 11);
-     responseJson = await finalResponse.json();
+     let responseJson = await finalResponse.json();
      data.push(...responseJson.searchResult.searchMerchants)
      counter--
      await page.waitForTimeout(5000)
@@ -39,14 +39,14 @@ const start=async () => {
  
   
   
-  
+  await browser.close()
   let results=[]
   data.map((ele)=>{
         results.push(ele.latlng)
   })
   
   
-   await browser.close()
+  
    return results
 
    
