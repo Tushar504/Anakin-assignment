@@ -33,7 +33,7 @@ const start=async () => {
      responseJson = await finalResponse.json();
      data.push(...responseJson.searchResult.searchMerchants)
      counter--
-     await page.waitForTimeout(10000)
+     await page.waitForTimeout(5000)
   }  
  
  
