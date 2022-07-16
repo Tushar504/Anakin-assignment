@@ -20,13 +20,21 @@ const start=async () => {
   
   
  
-  
-  const finalResponse = await page.waitForResponse(response => 
-    response.url()==='https://portal.grab.com/foodweb/v2/search'
-    && (response.request().method() === 'PATCH' 
-    || response.request().method() === 'POST'), 11);
-  let responseJson = await finalResponse.json();
-  console.log(responseJson.searchResult.searchMerchants)
+  let counter = 10;
+ let responseJson
+  while (counter!=0) {
+    await page.waitForSelector('.ant-btn')
+    await page.click('.ant-btn')
+    const finalResponse = await page.waitForResponse(response => 
+      response.url()==='https://portal.grab.com/foodweb/v2/search'
+      && (response.request().method() === 'PATCH' 
+      || response.request().method() === 'POST'), 11);
+     responseJson = await finalResponse.json();
+    console.log(responseJson.searchResult.searchMerchants)
+    counter--
+    await page.waitForTimeout(10000)
+  }  
+ 
  
   
   

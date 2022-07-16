@@ -13,7 +13,7 @@ app.get("/",async(req,res)=>{
       try {
           let data=await start()
         
-          res.send(data)
+          res.status(200).send(data)
       } 
       catch (error) {
           res.send(error)
