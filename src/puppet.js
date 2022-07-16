@@ -21,6 +21,7 @@ const start=async () => {
   
  
   let counter = 10;
+  let data=[]
  let responseJson
   while (counter!=0) {
     await page.waitForSelector('.ant-btn')
@@ -30,6 +31,7 @@ const start=async () => {
       && (response.request().method() === 'PATCH' 
       || response.request().method() === 'POST'), 11);
      responseJson = await finalResponse.json();
+     data.push(...responseJson.searchResult.searchMerchants)
     console.log(responseJson.searchResult.searchMerchants)
     counter--
     await page.waitForTimeout(10000)
@@ -40,7 +42,7 @@ const start=async () => {
   
   
   let results=[]
-  responseJson.searchResult.searchMerchants.map((ele)=>{
+  data.map((ele)=>{
         results.push(ele.latlng)
   })
   
