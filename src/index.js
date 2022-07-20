@@ -9,9 +9,9 @@ app.use(cors())
 app.use(express.json())
 
 
-app.get("/",async(req,res)=>{
+app.get("/:cityname",async(req,res)=>{
       try {
-          let data=await start()
+          let data=await start(req.params.cityname)
         
           res.status(200).send(data)
       } 

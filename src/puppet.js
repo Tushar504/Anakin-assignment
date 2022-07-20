@@ -3,7 +3,7 @@
 const puppeteer = require('puppeteer');
 
 
-const start=async () => {
+const start=async (city) => {
   const browser = await puppeteer.launch({headless:false});
   const page = await browser.newPage();
   
@@ -13,7 +13,7 @@ const start=async () => {
 
   await page.goto('https://food.grab.com/sg/en/')
   await page.waitForSelector('.ant-input')
-  await page.type('.ant-input',"mount")
+  await page.type('.ant-input',city)
   await page.waitForSelector('.ant-btn')
   await page.click('.ant-btn')
   await navigationPromise
@@ -31,9 +31,10 @@ const start=async () => {
       && (response.request().method() === 'PATCH' 
       || response.request().method() === 'POST'), 11);
      let responseJson = await finalResponse.json();
+     
      data.push(...responseJson.searchResult.searchMerchants)
      counter--
-     await page.waitForTimeout(3000)
+     await page.waitForTimeout(1000)
   }  
  
  
@@ -42,7 +43,7 @@ const start=async () => {
   await browser.close()
   let results=[]
   data.map((ele)=>{
-        results.push(ele.latlng)
+        results.push({Restaurant_Name:ele.address.name,latlad:ele.latlng})
   })
   
   
